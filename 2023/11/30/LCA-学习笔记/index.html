@@ -20,12 +20,12 @@
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="定义LCA（Lowest Common Ancestor）指的是最近公共祖先。对于有根树的两个结点 $x,y$ ，它们的最近公共祖先 $\text{LCA}(x,y)$ 表示 $x,y$ 的公共祖先中深度最大的那个。 性质 $\text{LCA}({x})&#x3D;x$； $x$ 是 $y$ 的祖先，当且仅当 $\text{LCA}(x,y)&#x3D;x$； 如果 $x$ 不为 $y$ 的祖先">
+  <meta name="description" content="定义LCA（Lowest Common Ancestor）指的是最近公共祖先。对于有根树的两个结点 $x,y$ ，它们的最近公共祖先 $\text{LCA}(x,y)$ 表示 $x,y$ 的公共祖先中深度最大的那个。 性质 $\text{LCA}(\{x\})&#x3D;x$； $x$ 是 $y$ 的祖先，当且仅当 $\text{LCA}(x,y)&#x3D;x$； 如果 $x$ 不为 $y$ 的祖先并且 $y$ 不">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LCA 学习笔记">
 <meta property="og:url" content="http://dolphin613.github.io/2023/11/30/LCA-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Dolphin&#39;s blog">
-<meta property="og:description" content="定义LCA（Lowest Common Ancestor）指的是最近公共祖先。对于有根树的两个结点 $x,y$ ，它们的最近公共祖先 $\text{LCA}(x,y)$ 表示 $x,y$ 的公共祖先中深度最大的那个。 性质 $\text{LCA}({x})&#x3D;x$； $x$ 是 $y$ 的祖先，当且仅当 $\text{LCA}(x,y)&#x3D;x$； 如果 $x$ 不为 $y$ 的祖先">
+<meta property="og:description" content="定义LCA（Lowest Common Ancestor）指的是最近公共祖先。对于有根树的两个结点 $x,y$ ，它们的最近公共祖先 $\text{LCA}(x,y)$ 表示 $x,y$ 的公共祖先中深度最大的那个。 性质 $\text{LCA}(\{x\})&#x3D;x$； $x$ 是 $y$ 的祖先，当且仅当 $\text{LCA}(x,y)&#x3D;x$； 如果 $x$ 不为 $y$ 的祖先并且 $y$ 不">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-30T02:15:50.000Z">
 <meta property="article:modified_time" content="2023-11-30T02:17:11.846Z">
@@ -220,13 +220,13 @@
         
           <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p><strong>LCA（Lowest Common Ancestor）指的是最近公共祖先。</strong>对于有根树的两个结点 $x,y$ ，它们的最近公共祖先 $\text{LCA}(x,y)$ 表示 $x,y$ 的公共祖先中深度最大的那个。</p>
 <h1 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h1><ol>
-<li>$\text{LCA}({x})&#x3D;x$；</li>
-<li>$x$ 是 $y$ 的祖先，当且仅当 $\text{LCA}(x,y)&#x3D;x$；</li>
+<li>$\text{LCA}(\{x\})=x$；</li>
+<li>$x$ 是 $y$ 的祖先，当且仅当 $\text{LCA}(x,y)=x$；</li>
 <li>如果 $x$ 不为 $y$ 的祖先并且 $y$ 不为 $x$ 的祖先，那么 $x,y$ 分别处于 $\text{LCA}(x,y)$ 的两棵不同子树中；</li>
 <li>前序遍历中，$\text{LCA}(S)$ 出现在所有 $S$ 中元素之前，后序遍历中 $\text{LCA}(S)$ 则出现在所有 $S$ 中元素之后；</li>
-<li>两点集并的最近公共祖先为两点集分别的最近公共祖先的最近公共祖先，即 $\text{LCA}(A\cup B)&#x3D;\text{LCA}(\text{LCA}(A), \text{LCA}(B))$；</li>
+<li>两点集并的最近公共祖先为两点集分别的最近公共祖先的最近公共祖先，即 $\text{LCA}(A\cup B)=\text{LCA}(\text{LCA}(A), \text{LCA}(B))$；</li>
 <li>两点的最近公共祖先必定处在树上两点间的最短路上；</li>
-<li>$d(x,y)&#x3D;h(x)+h(y)-2h(\text{LCA}(x,y))$，其中 $d$ 是树上两点间的距离， $h$ 代表某点到树根的距离。</li>
+<li>$d(x,y)=h(x)+h(y)-2h(\text{LCA}(x,y))$，其中 $d$ 是树上两点间的距离， $h$ 代表某点到树根的距离。</li>
 </ol>
 <blockquote>
 <p>摘自 OI-wiki ，有修改</p>
@@ -251,7 +251,7 @@
 <li>要保证 $x$ 比 $y$ 深。</li>
 </ul>
 <h2 id="倍增-LCA"><a href="#倍增-LCA" class="headerlink" title="倍增 LCA"></a>倍增 LCA</h2><p>可以 $O(\log n)$ 地单次查询两点的 LCA 。</p>
-<p>定义 $fa_{i,j}$ 表示 $i$ 的 $2^j$ 辈祖先，那么就有 $fa_{i,j}&#x3D;fa_{fa_{i,j-1},j-1}$。</p>
+<p>定义 $fa_{i,j}$ 表示 $i$ 的 $2^j$ 辈祖先，那么就有 $fa_{i,j}=fa_{fa_{i,j-1},j-1}$。</p>
 <p>这样就可以在 $O(n\log n)$ 的时间复杂度内预处理出每个结点 $x$ 的 $2^k,(k\leq\log deep_x)$ 辈祖先。</p>
 <p>其实就是把朴素 LCA 的小步走变成了大步跳，算是朴素 LCA 的一种优化，本质上是没有区别的。</p>
 <h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> fath)</span> </span>&#123;</span><br><span class="line">    fa[x][<span class="number">0</span>]=fath;</span><br><span class="line">    dep[x]=dep[fath]+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=lg[dep[x]];i++)<span class="comment">//递推 x 的 2^i 辈父亲</span></span><br><span class="line">        fa[x][i]=fa[fa[x][i<span class="number">-1</span>]][i<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=head[x];i;i=nxt[i]) &#123;</span><br><span class="line">    	<span class="type">int</span> y=to[i];</span><br><span class="line">        <span class="keyword">if</span>(y!=fath) <span class="built_in">dfs</span>(y,x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">LCA</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(dep[x]&lt;dep[y]) <span class="built_in">swap</span>(x,y);</span><br><span class="line">    <span class="keyword">while</span>(dep[x]&gt;dep[y])<span class="comment">//x 大步跳</span></span><br><span class="line">        x=fa[x][lg[dep[x]-dep[y]]<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">if</span>(x==y) <span class="keyword">return</span> x;<span class="comment">//这行很重要，返回的是 x</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=lg[dep[x]];i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">        <span class="keyword">if</span>(fa[x][i]!=fa[y][i]) &#123;<span class="comment">//x,y 大步跳</span></span><br><span class="line">        x=fa[x][i];</span><br><span class="line">        y=fa[y][i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fa[x][<span class="number">0</span>];<span class="comment">//返回 x 的父亲</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="comment">//递推 log 数组</span></span><br><span class="line">    lg[i]=lg[i/<span class="number">2</span>]+<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
@@ -274,9 +274,9 @@
 <h3 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h3><ol>
 <li>对于新搜到的一个结点 $x$，对 $x$ 的每一个子树进行搜索。</li>
 <li>当某一棵子树搜索完后，把子树所形成的集合与当前结点 $x$ 用并查集合并，并将 $x$ 设为这个集合的祖先，直到 $x$ 的所有子树搜索完。</li>
-<li>标记 $x$ 结点的搜索标记 $vis_x&#x3D;1$，并且把 $x$ 所在的集合与 $fa_x$ 所在的集合合并，根为 $fa_x$。</li>
+<li>标记 $x$ 结点的搜索标记 $vis_x=1$，并且把 $x$ 所在的集合与 $fa_x$ 所在的集合合并，根为 $fa_x$。</li>
 <li>接下来处理有关 $x$ 的询问，对于询问 $\text{LCA}(x,y)$：<ul>
-<li>如果 $y$ 结点已经被访问过了，即 $vis_y&#x3D;1$，那么 $\text{LCA}(x,y)&#x3D;find(y)$，其中 $find$ 表示某集合的根。</li>
+<li>如果 $y$ 结点已经被访问过了，即 $vis_y=1$，那么 $\text{LCA}(x,y)=find(y)$，其中 $find$ 表示某集合的根。</li>
 <li>如果 $y$ 结点还没有被访问过，那么此次询问的答案将会在 $y$ 结点被访问过后被计算。</li>
 </ul>
 </li>
