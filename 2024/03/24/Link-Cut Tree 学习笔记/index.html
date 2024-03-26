@@ -20,15 +20,15 @@
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="1#define Get(x) (son[fa[x]][1]&#x3D;&#x3D;x) 1#define IsRoot(x) (son[fa[x]][0]!&#x3D;x&amp;&amp;son[fa[x]][1]!&#x3D;x) 1#define Reverse(x) swap(son[x][0],son[x][1]),tag[x]^&#x3D;1 123void PushUp(int x) &amp;#123;    ans[x]&#x3D;ans[so">
+  <meta name="description" content="简介Link-Cut Tree 是一种用来解决动态树问题的数据结构。 Splay 是 LCT 的基础，请保证您已经掌握了 Splay。 动态树问题维护一个森林，支持删除某条边，加入某条边，并保证加边，删边之后仍是森林。我们要维护这个森林的一些信息。 一般的操作有两点连通性，两点路径权值和，连接两点和切断某条边、修改信息等。 实链剖分首先回顾重链剖分，我们按照子树大小进行剖分，并重新为节点标号。 我">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Link-Cut Tree 学习笔记">
 <meta property="og:url" content="http://dolphin613.github.io/2024/03/24/Link-Cut%20Tree%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Dolphin&#39;s blog">
-<meta property="og:description" content="1#define Get(x) (son[fa[x]][1]&#x3D;&#x3D;x) 1#define IsRoot(x) (son[fa[x]][0]!&#x3D;x&amp;&amp;son[fa[x]][1]!&#x3D;x) 1#define Reverse(x) swap(son[x][0],son[x][1]),tag[x]^&#x3D;1 123void PushUp(int x) &amp;#123;    ans[x]&#x3D;ans[so">
+<meta property="og:description" content="简介Link-Cut Tree 是一种用来解决动态树问题的数据结构。 Splay 是 LCT 的基础，请保证您已经掌握了 Splay。 动态树问题维护一个森林，支持删除某条边，加入某条边，并保证加边，删边之后仍是森林。我们要维护这个森林的一些信息。 一般的操作有两点连通性，两点路径权值和，连接两点和切断某条边、修改信息等。 实链剖分首先回顾重链剖分，我们按照子树大小进行剖分，并重新为节点标号。 我">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-03-24T08:31:00.000Z">
-<meta property="article:modified_time" content="2024-03-24T08:38:50.133Z">
+<meta property="article:modified_time" content="2024-03-26T11:46:06.863Z">
 <meta property="article:author" content="Dolphin613">
 <meta property="article:tag" content="知识点笔记">
 <meta property="article:tag" content="动态树">
@@ -224,7 +224,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            1.3k words 
+            2.4k words 
           </div>
         </div>
         
@@ -233,7 +233,49 @@
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> Get(x) (son[fa[x]][1]==x)</span></span><br></pre></td></tr></table></figure>
+          <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Link-Cut Tree 是一种用来解决动态树问题的数据结构。</p>
+<p>Splay 是 LCT 的基础，请保证您已经掌握了 Splay。</p>
+<h2 id="动态树问题"><a href="#动态树问题" class="headerlink" title="动态树问题"></a>动态树问题</h2><p>维护一个森林，支持删除某条边，加入某条边，并保证加边，删边之后仍是森林。我们要维护这个森林的一些信息。</p>
+<p>一般的操作有两点连通性，两点路径权值和，连接两点和切断某条边、修改信息等。</p>
+<h1 id="实链剖分"><a href="#实链剖分" class="headerlink" title="实链剖分"></a>实链剖分</h1><p>首先回顾重链剖分，我们按照子树大小进行剖分，并重新为节点标号。</p>
+<p>我们发现树被划分成了许多以链为单位的子段，使用线段树进行维护。</p>
+<p>那么我们想到可以自己选定边用以剖分，创造一种新的剖分来解决动态树问题。</p>
+<h2 id="定义实链剖分"><a href="#定义实链剖分" class="headerlink" title="定义实链剖分"></a>定义实链剖分</h2><p>对于一个点，我们选择一条出边进行剖分，我们称被选择的边为实边，其他边则为虚边。</p>
+<p>对于实边，我们称它所连接的儿子为实儿子。对于一条由实边组成的链，我们同样称之为实链。</p>
+<p>由于剖分的边是我们选择的，灵活且可变。正是它的这种灵活可变性，我们采用 Splay 来维护这些实链。</p>
+<h1 id="辅助树"><a href="#辅助树" class="headerlink" title="辅助树"></a>辅助树</h1><p>一棵辅助树由一些 Splay 构成，每棵辅助树维护的是原森林中的一棵树，一些辅助树构成了 LCT，其维护的是整个森林。</p>
+<ol>
+<li>辅助树由多棵 Splay 组成，每棵 Splay 维护原树中的一条路径，且这棵 Splay 的中序遍历与原实链顺序相同。</li>
+<li>原树每个节点与辅助树的 Splay 节点一一对应，且每条实链对应一棵 Splay。</li>
+<li>辅助树的各棵 Splay 之间并不是独立的。每棵 Splay 的根节点的父亲节点指向原树中这条链的父亲节点。这条边与 Splay 中通常的父子关系区别在于儿子认父亲，而父亲不认儿子，对应原树的一条虚边。</li>
+</ol>
+<p>由于辅助树的性质，我们维护任何操作都不需要维护原树，只需要维护辅助树即可。</p>
+<p>辅助树是可以在满足辅助树、Splay 的性质下任意换根的。虚实链变换也可以轻松在辅助树上完成，这就实现了动态维护树链剖分。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="需要用到的数组"><a href="#需要用到的数组" class="headerlink" title="需要用到的数组"></a>需要用到的数组</h2><ul>
+<li><code>son[x][0/1]</code> 左右儿子</li>
+<li><code>fa[x]</code> 父亲</li>
+<li><code>val[x]</code> 点权</li>
+<li><code>tag[x]</code> 反转标记</li>
+<li>题目需要用到的其他数组</li>
+</ul>
+<h2 id="需要用到的函数"><a href="#需要用到的函数" class="headerlink" title="需要用到的函数"></a>需要用到的函数</h2><ul>
+<li><code>Reverse(x)</code> 翻转 $x$ 的子树</li>
+<li><code>IsRoot(x)</code> 判断 $x$ 是否为当前 Splay 的根</li>
+<li><code>PushUp(x)</code> 向上更新数据</li>
+<li><code>PushDown(x)</code> 向下传递标记</li>
+<li><code>Update(x)</code> 从当前 Splay 的根下传标记到 $x$</li>
+<li><code>Get(x)</code> 获取 $x$ 是 Splay 中父亲的那个儿子</li>
+<li><code>Rotate(x)</code> 将 $x$ 向上旋转一层</li>
+<li><code>Splay(x)</code> 伸展 $x$ 到当前 Splay 的根</li>
+<li><code>Access(x)</code> 将当前原树的根到 $x$ 拉成一条实链</li>
+<li><code>MakeRoot(x)</code> 将 $x$ 换成当前原树的根</li>
+<li><code>FindRoot(x)</code> 返回 $x$ 所在原树的根节点编号</li>
+<li><code>Link(x,y)</code> 在 $x,y$ 之间连一条边</li>
+<li><code>Cut(x,y)</code> 断开 $x,y$ 之间的边</li>
+<li><code>Split(x,y)</code> 提取出 $x,y$ 间的路径</li>
+<li>题目需要用到的其他函数</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> Get(x) (son[fa[x]][1]==x)</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> IsRoot(x) (son[fa[x]][0]!=x&amp;&amp;son[fa[x]][1]!=x)</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> Reverse(x) swap(son[x][0],son[x][1]),tag[x]^=1</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">PushUp</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    ans[x]=ans[son[x][<span class="number">0</span>]]^ans[son[x][<span class="number">1</span>]]^val[x];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -324,5 +366,20 @@
 
   </div>
   <script src="/js/light-dark-switch.js"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
