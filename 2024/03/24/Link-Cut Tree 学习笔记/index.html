@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://dolphin613.github.io/images/LCT-MakeRoot1.png">
 <meta property="og:image" content="http://dolphin613.github.io/images/LCT-MakeRoot2.png">
 <meta property="article:published_time" content="2024-03-24T08:31:00.000Z">
-<meta property="article:modified_time" content="2024-04-16T11:38:00.827Z">
+<meta property="article:modified_time" content="2024-04-17T13:06:22.598Z">
 <meta property="article:author" content="Dolphin613">
 <meta property="article:tag" content="知识点笔记">
 <meta property="article:tag" content="动态树">
@@ -169,13 +169,13 @@
     <div class="widget">
       <h3 class="widget-title">Categories</h3>
       <div class="category-box">
-            <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">
-                题解
+            <a class="category-link" href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AC%94%E8%AE%B0/">
+                知识点笔记
                 <div class="category-count">2</div>
             </a>
         
-            <a class="category-link" href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AC%94%E8%AE%B0/">
-                知识点笔记
+            <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">
+                题解
                 <div class="category-count">2</div>
             </a>
         </div>
@@ -254,7 +254,7 @@
 <p>由于剖分的边是我们选择的，灵活且可变。正是它的这种灵活可变性，我们采用 Splay 来维护这些实链。</p>
 <h1 id="辅助树"><a href="#辅助树" class="headerlink" title="辅助树"></a>辅助树</h1><p>一棵辅助树由一些 Splay 构成，每棵辅助树维护的是原森林中的一棵树，一些辅助树构成了 LCT，其维护的是整个森林。</p>
 <ol>
-<li>辅助树由多棵 Splay 组成，每棵 Splay 维护原树中的一条路径，且这棵 Splay 的中序遍历与原实链顺序相同。</li>
+<li>辅助树由多棵 Splay 组成，每棵 Splay 维护原树中的一条实链，且这棵 Splay 的中序遍历与原实链顺序相同。</li>
 <li>原树每个节点与辅助树的 Splay 节点一一对应，且每条实链对应一棵 Splay。</li>
 <li>辅助树的各棵 Splay 之间并不是独立的。每棵 Splay 的根节点的父亲节点指向原树中这条链的父亲节点。这条边与 Splay 中通常的父子关系区别在于儿子认父亲，而父亲不认儿子，对应原树的一条虚边。</li>
 </ol>
@@ -326,7 +326,7 @@
 <p><img src="/images/LCT-MakeRoot2.png" alt="图8"></p>
 <p>因此先将 $x$ 到根的路径分离，再将其翻转即可。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">MakeRoot</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">Access</span>(x);</span><br><span class="line">    <span class="built_in">Splay</span>(x);<span class="comment">//将 x 伸展到根</span></span><br><span class="line">    <span class="built_in">Reverse</span>(x);<span class="comment">//翻转整棵 Splay</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="FindRoot-x"><a href="#FindRoot-x" class="headerlink" title="FindRoot(x)"></a>FindRoot(x)</h2><p>先 <code>Access(x)</code> 后，再 <code>Splay(x)</code>。</p>
+<h2 id="FindRoot-x"><a href="#FindRoot-x" class="headerlink" title="FindRoot(x)"></a>FindRoot(x)</h2><p>先 <code>Access(x)</code>，再 <code>Splay(x)</code>。</p>
 <p>由于根是树里深度最小的那个，所以就一直往左儿子走，沿途 <code>PushDown</code> 即可。</p>
 <p>每次查询之后需要把查询到的答案对应的结点伸展到根以保证复杂度。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">FindRoot</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">Access</span>(x);</span><br><span class="line">    <span class="built_in">Splay</span>(x);</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">lson</span>(x)) &#123;<span class="comment">//一直往左走</span></span><br><span class="line">        <span class="built_in">PushDown</span>(x);</span><br><span class="line">        x=<span class="built_in">lson</span>(x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">Splay</span>(x);</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
