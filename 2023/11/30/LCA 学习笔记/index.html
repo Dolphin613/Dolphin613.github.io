@@ -28,7 +28,7 @@
 <meta property="og:description" content="定义LCA（Lowest Common Ancestor）指的是最近公共祖先。对于有根树的两个结点 $x,y$，它们的最近公共祖先 $\text{LCA}(x,y)$ 表示 $x,y$ 的公共祖先中深度最大的那个。 性质 $\text{LCA}(\{x\})&#x3D;x$； $x$ 是 $y$ 的祖先，当且仅当 $\text{LCA}(x,y)&#x3D;x$； 如果 $x$ 不为 $y$ 的祖先并且 $y$ 不为">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-11-30T02:15:50.000Z">
-<meta property="article:modified_time" content="2024-03-24T08:35:26.395Z">
+<meta property="article:modified_time" content="2024-04-28T10:09:57.152Z">
 <meta property="article:author" content="Dolphin613">
 <meta property="article:tag" content="知识点笔记">
 <meta property="article:tag" content="树上问题">
@@ -248,7 +248,7 @@
 </blockquote>
 <h1 id="求法"><a href="#求法" class="headerlink" title="求法"></a>求法</h1><h2 id="朴素-LCA"><a href="#朴素-LCA" class="headerlink" title="朴素 LCA"></a>朴素 LCA</h2><ul>
 <li>对于无根树来说，可以建立双向边，并选一个点作根进行搜索。</li>
-<li>从根开始搜，对于一个结点 $x$，记录结点的深度标记 $deep_x$ 和父亲结点的编号 $fa_x$。</li>
+<li>从根开始搜，对于一个结点 $x$，记录结点的深度标记 $deep(x)$ 和父亲结点的编号 $fa(x)$。</li>
 <li>对于 $q$ 个询问 $x,y$ 的 LCA，每次调用一次 $\text{LCA}(x,y)$。</li>
 </ul>
 <h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
@@ -265,8 +265,8 @@
 <li>要保证 $x$ 比 $y$ 深。</li>
 </ul>
 <h2 id="倍增-LCA"><a href="#倍增-LCA" class="headerlink" title="倍增 LCA"></a>倍增 LCA</h2><p>可以 $O(\log n)$ 地单次查询两点的 LCA 。</p>
-<p>定义 $fa_{i,j}$ 表示 $i$ 的 $2^j$ 辈祖先，那么就有 $fa_{i,j}=fa_{fa_{i,j-1},j-1}$。</p>
-<p>这样就可以在 $O(n\log n)$ 的时间复杂度内预处理出每个结点 $x$ 的 $2^k\,(k\leq\log deep_x)$ 辈祖先。</p>
+<p>定义 $fa(i,j)$ 表示 $i$ 的 $2^j$ 辈祖先，那么就有 $fa(i,j)=fa(fa(i,j-1),j-1)$。</p>
+<p>这样就可以在 $O(n\log n)$ 的时间复杂度内预处理出每个结点 $x$ 的 $2^k\,(k\leq\log deep(x))$ 辈祖先。</p>
 <p>其实就是把朴素 LCA 的小步走变成了大步跳，算是朴素 LCA 的一种优化，本质上是没有区别的。</p>
 <h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> fath)</span> </span>&#123;</span><br><span class="line">    fa[x][<span class="number">0</span>]=fath;</span><br><span class="line">    dep[x]=dep[fath]+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=lg[dep[x]];i++)<span class="comment">//递推 x 的 2^i 辈父亲</span></span><br><span class="line">        fa[x][i]=fa[fa[x][i<span class="number">-1</span>]][i<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=head[x];i;i=nxt[i]) &#123;</span><br><span class="line">        <span class="type">int</span> y=to[i];</span><br><span class="line">        <span class="keyword">if</span>(y!=fath) <span class="built_in">dfs</span>(y,x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">LCA</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(dep[x]&lt;dep[y]) <span class="built_in">swap</span>(x,y);</span><br><span class="line">    <span class="keyword">while</span>(dep[x]&gt;dep[y])<span class="comment">//x 大步跳</span></span><br><span class="line">        x=fa[x][lg[dep[x]-dep[y]]<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">if</span>(x==y) <span class="keyword">return</span> x;<span class="comment">//这行很重要，返回的是 x</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=lg[dep[x]];i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">        <span class="keyword">if</span>(fa[x][i]!=fa[y][i]) &#123;<span class="comment">//x,y 大步跳</span></span><br><span class="line">        x=fa[x][i];</span><br><span class="line">        y=fa[y][i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fa[x][<span class="number">0</span>];<span class="comment">//返回 x 的父亲</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
