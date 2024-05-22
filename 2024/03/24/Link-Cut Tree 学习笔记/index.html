@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://dolphin613.github.io/images/LCT-MakeRoot1.png">
 <meta property="og:image" content="http://dolphin613.github.io/images/LCT-MakeRoot2.png">
 <meta property="article:published_time" content="2024-03-24T08:31:00.000Z">
-<meta property="article:modified_time" content="2024-04-17T13:06:22.598Z">
+<meta property="article:modified_time" content="2024-05-22T10:51:00.844Z">
 <meta property="article:author" content="Dolphin613">
 <meta property="article:tag" content="知识点笔记">
 <meta property="article:tag" content="动态树">
@@ -299,7 +299,7 @@
 <li>伸展 $x$ 到 Splay 的根。</li>
 <li>将 $x$ 的右儿子（因为左儿子比 $x$ 浅，右儿子比 $x$ 深）修改为上一个 $x$，如果是第一次就改为空。</li>
 <li>更新 $x$ 的信息。</li>
-<li>重复以上操作。</li>
+<li>将 $x$ 变为 $x$ 的父亲，重复以上操作。</li>
 </ol>
 <p>比如这样一棵树：</p>
 <p><img src="/images/LCT-Tree1.png" alt="图1"></p>
@@ -309,7 +309,7 @@
 <p><img src="/images/LCT-AuxTree1.png" alt="图3"></p>
 <p>我们将每一个 Splay 圈起来。如图：</p>
 <p><img src="/images/LCT-AuxTree2.png" alt="图4"></p>
-<p>那么我们按上面的步骤拉成一条实链，就像这样：</p>
+<p>那么我们按上面的步骤拉成一条实链，就像这样（由于地方不够大，最后一步 $B$ 其实为 $A$ 的右儿子）：</p>
 <p><img src="/images/LCT-Access.gif" alt="图5"></p>
 <p>最后辅助树会变成这样：</p>
 <p><img src="/images/LCT-AuxTree3.png" alt="图6"></p>
