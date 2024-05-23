@@ -28,7 +28,7 @@
 <meta property="og:description" content="图论存图邻接矩阵123void add(int x,int y,int z) &amp;#123;    a[x][y]&#x3D;z;&amp;#125; 邻接表（链式前向星）123456void add(int x,int y,int z) &amp;#123;    to[++tot]&#x3D;y;    val[tot]&#x3D;z;    nxt[tot]&#x3D;head[x];    head[x]&#x3D;tot;&amp;#125; 最短路Floyd1">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-05-23T10:08:04.000Z">
-<meta property="article:modified_time" content="2024-05-23T10:33:34.948Z">
+<meta property="article:modified_time" content="2024-05-23T10:55:16.738Z">
 <meta property="article:author" content="Dolphin613">
 <meta property="article:tag" content="模板">
 <meta name="twitter:card" content="summary">
@@ -158,13 +158,13 @@
     <div class="widget">
       <h3 class="widget-title">Categories</h3>
       <div class="category-box">
-            <a class="category-link" href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AC%94%E8%AE%B0/">
-                知识点笔记
+            <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">
+                题解
                 <div class="category-count">2</div>
             </a>
         
-            <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">
-                题解
+            <a class="category-link" href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AC%94%E8%AE%B0/">
+                知识点笔记
                 <div class="category-count">2</div>
             </a>
         </div>
@@ -245,7 +245,7 @@
 <h3 id="SPFA"><a href="#SPFA" class="headerlink" title="SPFA"></a>SPFA</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">spfa</span><span class="params">(<span class="type">int</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(f,<span class="number">0x3f</span>,<span class="keyword">sizeof</span> f);</span><br><span class="line">    q.<span class="built_in">push</span>(s),f[s]=<span class="number">0</span>,v[s]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="type">int</span> x=q.<span class="built_in">front</span>();<span class="comment">//取队列中的一个元素 x</span></span><br><span class="line">        q.<span class="built_in">pop</span>(),v[x]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=head[x];i;i=nxt[i]) &#123;</span><br><span class="line">            <span class="type">int</span> y=to[i];</span><br><span class="line">            <span class="keyword">if</span>(f[y]&gt;f[x]+val[i]) &#123;</span><br><span class="line">                f[y]=f[x]+val[i];<span class="comment">//用 x 更新 s 到 y 的最短距离</span></span><br><span class="line">                <span class="keyword">if</span>(!v[y]) q.<span class="built_in">push</span>(y),v[y]=<span class="number">1</span>;<span class="comment">//将 y 入队</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>f[x]</code> 表示源点 $s$ 到点 $x$ 的最短距离。</li>
-<li><code>v[x]</code> 表示点 $i$ 是否在队列中。</li>
+<li><code>v[x]</code> 表示点 $x$ 是否在队列中。</li>
 </ul>
 <h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">toposort</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt;q;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) <span class="keyword">if</span>(!ind[i]) q.<span class="built_in">push</span>(i);<span class="comment">//将所有入度为 0 的点入队</span></span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="type">int</span> x=q.<span class="built_in">front</span>();<span class="comment">//取队列中的一个元素 x</span></span><br><span class="line">        q.<span class="built_in">pop</span>(),ans[++cnt]=x;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=head[x];i;i=nxt[i]) &#123;</span><br><span class="line">            <span class="type">int</span> y=to[i];</span><br><span class="line">            ind[y]--;<span class="comment">//删去 x 到 y 的一条边</span></span><br><span class="line">            <span class="keyword">if</span>(!ind[y]) q.<span class="built_in">push</span>(y);<span class="comment">//将 y 入队</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
