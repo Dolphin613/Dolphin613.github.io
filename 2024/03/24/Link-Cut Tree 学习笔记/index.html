@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://dolphin613.github.io/images/LCT-MakeRoot1.png">
 <meta property="og:image" content="http://dolphin613.github.io/images/LCT-MakeRoot2.png">
 <meta property="article:published_time" content="2024-03-24T08:31:00.000Z">
-<meta property="article:modified_time" content="2024-05-22T10:51:00.844Z">
+<meta property="article:modified_time" content="2024-05-23T08:53:10.897Z">
 <meta property="article:author" content="Dolphin613">
 <meta property="article:tag" content="知识点笔记">
 <meta property="article:tag" content="动态树">
@@ -314,7 +314,7 @@
 <p>最后辅助树会变成这样：</p>
 <p><img src="/images/LCT-AuxTree3.png" alt="图6"></p>
 <p>中序遍历 $N$ 所在的 Splay 可以得到 $ACGHILN$，与原树相同。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Access</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> y=<span class="number">0</span>;<span class="comment">//上一次的 x</span></span><br><span class="line">    <span class="keyword">while</span>(x) &#123;</span><br><span class="line">        <span class="built_in">Splay</span>(x);</span><br><span class="line">        <span class="built_in">rson</span>(x)=y;</span><br><span class="line">        <span class="built_in">PushUp</span>(x);</span><br><span class="line">        y=x,x=fa[x];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Access</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> y=<span class="number">0</span>;x;y=x,x=fa[x])<span class="comment">//y 为上一次的 x</span></span><br><span class="line">        <span class="built_in">Splay</span>(x),<span class="built_in">rson</span>(x)=y,<span class="built_in">PushUp</span>(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="MakeRoot-x"><a href="#MakeRoot-x" class="headerlink" title="MakeRoot(x)"></a>MakeRoot(x)</h2><p>只是把根到某个节点的路径拉起来并不能满足我们的需要。</p>
 <p>更多时候，我们要获取指定两个节点之间的路径信息。</p>
 <p>然而可能这两个点不是祖孙关系，即该路径不能满足按深度严格递增的要求。</p>
