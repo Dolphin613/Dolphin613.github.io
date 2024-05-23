@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://dolphin613.github.io/images/LCT-MakeRoot1.png">
 <meta property="og:image" content="http://dolphin613.github.io/images/LCT-MakeRoot2.png">
 <meta property="article:published_time" content="2024-03-24T08:31:00.000Z">
-<meta property="article:modified_time" content="2024-05-23T08:53:10.897Z">
+<meta property="article:modified_time" content="2024-05-23T08:57:44.829Z">
 <meta property="article:author" content="Dolphin613">
 <meta property="article:tag" content="知识点笔记">
 <meta property="article:tag" content="动态树">
@@ -337,7 +337,7 @@
 <p>显然，这个操作肯定不能发生在同一棵树内，所以记得先判一下 $y$ 的根是否为 $x$。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Link</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">MakeRoot</span>(x);</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">FindRoot</span>(y)==x) <span class="keyword">return</span>;<span class="comment">//数据保证合法可以省略</span></span><br><span class="line">    fa[x]=y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Cut-x-y"><a href="#Cut-x-y" class="headerlink" title="Cut(x,y)"></a>Cut(x,y)</h2><p>如果数据保证合法，那么直接 <code>Split(x,y)</code>，此时 Splay 中只有 $x,y$ 两个节点，且 $y$ 为 Splay 的根，$x$ 在原树的深度比 $y$ 浅，那么只要把 $y$ 的左儿子和 $x$ 的父亲制成 $0$ 即可。</p>
-<p>如果数据不保证合法，那就先 <code>MakeRoot(x)</code>，还需要判断一下 $x,y$ 之间是否有边。当 $x$ 为 Splay 的根时，这需要满足三个条件：</p>
+<p>如果数据不保证合法，那就先 <code>MakeRoot(x)</code>，还需要判断一下 $x,y$ 之间是否有边。当 $x,y$ 在同一棵 Splay 里且 $x$ 为 Splay 的根时，这需要满足三个条件：</p>
 <ol>
 <li>$x,y$ 连通。</li>
 <li>$y$ 的父亲为 $x$。</li>
