@@ -73,37 +73,37 @@
 }
 @supports not (color: oklch(0 0 0)) {
   :root {
-    --primary: oklchToHex(0.75, 0.14, 220);
-    --nav-dropdown-bg: oklchToHex(0.2, 0.02, 220);
-    --page-background: oklchToHex(0.16, 0.014, 220);
-    --card-background: oklchToHex(0.25, 0.02, 220);
-    --btn-bg: oklchToHex(0.38, 0.04, 220);
-    --btn-hover: oklchToHex(0.45, 0.045, 220);
-    --btn-active: oklchToHex(0.5, 0.05, 220);
-    --card-btn-hover: oklchToHex(0.3, 0.03, 220);
-    --card-btn-active: oklchToHex(0.35, 0.035, 220);
-    --btn-text-hover: oklchToHex(0.2, 0.02, 220);
-    --btn-text-active: oklchToHex(0.17, 0.017, 220);
-    --timeline-dim-dot: oklchToHex(0.5, 0.05, 220);
-    --title-active: oklchToHex(0.65, 0.12, 220);
-    --tag-dot: oklchToHex(0.25, 0.02, 220);
-    --highlight-selection: oklchToHex(0.35, 0.035, 220);
-    --article-code-bg: oklchToHex(0.4, 0.04, 220);
-    --article-block: oklchToHex(0.2, 0.02, 220);
-    --link-hover-bg: oklchToHex(0.4, 0.08, 220);
-    --link-active-bg: oklchToHex(0.35, 0.07, 220);
-    --blockquote-bg: oklchToHex(0.2, 0.02, 220);
-    --color-picker-range: oklchToHex(0.4, 0.04, 220);
-    --badge-bg: oklchToHex(0.75, 0.12, 220);
-    --text-on-light: oklchToHex(0.25, 0.02, 220);
-    --pagenav-curr-text: oklchToHex(0.25, 0.02, 220);
-    --input-field: oklchToHex(0.2, 0.02, 220);
-    --primary-btn-text: oklchToHex(0.25, 0.02, 220);
-    --enter-btn-bg: oklchToHex(0.2, 0.02, 220);
-    --enter-btn-hover: oklchToHex(0.3, 0.03, 220);
-    --enter-btn-active: oklchToHex(0.35, 0.035, 220);
-    --selection-bg: oklchToHex(0.4, 0.08, 220);
-    --code-block-selection-bg: oklchToHex(0.4, 0.08, 220);
+    --primary: #00c1eb;
+    --nav-dropdown-bg: #0b181c;
+    --page-background: #070f11;
+    --card-background: #172428;
+    --btn-bg: #294751;
+    --btn-hover: #385b67;
+    --btn-active: #416a77;
+    --card-btn-hover: #1c3138;
+    --card-btn-active: #253f47;
+    --btn-text-hover: #0b181c;
+    --btn-text-active: #071115;
+    --timeline-dim-dot: #416a77;
+    --title-active: #009fc1;
+    --tag-dot: #172428;
+    --highlight-selection: #253f47;
+    --article-code-bg: #2e4d57;
+    --article-block: #0b181c;
+    --link-hover-bg: #005165;
+    --link-active-bg: #004254;
+    --blockquote-bg: #0b181c;
+    --color-picker-range: #2e4d57;
+    --badge-bg: #3dbfe2;
+    --text-on-light: #172428;
+    --pagenav-curr-text: #172428;
+    --input-field: #0b181c;
+    --primary-btn-text: #172428;
+    --enter-btn-bg: #0b181c;
+    --enter-btn-hover: #1c3138;
+    --enter-btn-active: #253f47;
+    --selection-bg: #005165;
+    --code-block-selection-bg: #005165;
   }
 }
 :root[theme='light'] {
@@ -158,31 +158,31 @@
 }
 @supports not (color: oklch(0 0 0)) {
   :root[theme='light'] {
-    --primary: oklchToHex(0.7, 0.14, 220);
-    --page-background: oklchToHex(0.95, 0.01, 220);
-    --nav-dropdown-bg: oklchToHex(0.98, 0.005, 220);
-    --btn-bg: oklchToHex(0.95, 0.025, 220);
-    --btn-content: oklchToHex(0.55, 0.12, 220);
-    --btn-hover: oklchToHex(0.9, 0.05, 220);
-    --btn-active: oklchToHex(0.85, 0.08, 220);
-    --btn-text-hover: oklchToHex(0.95, 0.025, 220);
-    --btn-text-active: oklchToHex(0.98, 0.01, 220);
-    --btn-text-content: oklchToHex(0.7, 0.14, 220);
-    --card-btn-hover: oklchToHex(0.98, 0.005, 220);
-    --card-btn-active: oklchToHex(0.9, 0.03, 220);
-    --title-active: oklchToHex(0.6, 0.12, 220);
-    --link-hover-bg: oklchToHex(0.95, 0.025, 220);
-    --link-active-bg: oklchToHex(0.9, 0.05, 220);
-    --article-code-bg: oklchToHex(0.95, 0.02, 220);
-    --blockquote-bg: oklchToHex(0.98, 0.005, 220);
-    --badge-bg: oklchToHex(0.95, 0.02, 220);
-    --text-on-light: oklchToHex(0.55, 0.12, 220);
-    --color-picker-range: oklchToHex(0.95, 0.02, 220);
-    --input-field: oklchToHex(0.98, 0.005, 220);
-    --enter-btn-bg: oklchToHex(0.98, 0.005, 220);
-    --enter-btn-hover: oklchToHex(0.96, 0.015, 220);
-    --enter-btn-active: oklchToHex(0.9, 0.03, 220);
-    --selection-bg: oklchToHex(0.9, 0.05, 220);
+    --primary: #00b1da;
+    --page-background: #e8f0f3;
+    --nav-dropdown-bg: #f5f9fb;
+    --btn-bg: #ddf3fa;
+    --btn-content: #0080a0;
+    --btn-hover: #bae7f5;
+    --btn-active: #91dbf2;
+    --btn-text-hover: #ddf3fa;
+    --btn-text-active: #f2fafd;
+    --btn-text-content: #00b1da;
+    --card-btn-hover: #f5f9fb;
+    --card-btn-active: #c9e3ec;
+    --title-active: #0090b1;
+    --link-hover-bg: #ddf3fa;
+    --link-active-bg: #bae7f5;
+    --article-code-bg: #e1f2f8;
+    --blockquote-bg: #f5f9fb;
+    --badge-bg: #e1f2f8;
+    --text-on-light: #0080a0;
+    --color-picker-range: #e1f2f8;
+    --input-field: #f5f9fb;
+    --enter-btn-bg: #f5f9fb;
+    --enter-btn-hover: #e7f4f9;
+    --enter-btn-active: #c9e3ec;
+    --selection-bg: #bae7f5;
   }
 }
 body {
