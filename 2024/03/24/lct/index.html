@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://dolphin613.github.io/images/lct/makeroot1.png">
 <meta property="og:image" content="http://dolphin613.github.io/images/lct/makeroot2.png">
 <meta property="article:published_time" content="2024-03-24T08:31:00.000Z">
-<meta property="article:modified_time" content="2024-06-20T11:05:03.047Z">
+<meta property="article:modified_time" content="2024-06-25T07:50:53.504Z">
 <meta property="article:author" content="Dolphin613">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="动态树">
@@ -171,12 +171,12 @@
       <div class="category-box">
             <a class="category-link" href="/categories/%E5%9B%BE%E8%AE%BA/">
                 图论
-                <div class="category-count">1</div>
+                <div class="category-count">2</div>
             </a>
         <div class="children"><div class="category-box">
             <a class="category-link" href="/categories/%E5%9B%BE%E8%AE%BA/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/">
                 树上问题
-                <div class="category-count">1</div>
+                <div class="category-count">2</div>
             </a>
         </div></div>
             <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
@@ -198,7 +198,7 @@
   <div class="widget-wrap">
     <div class="widget">
       <h3 class="widget-title">Tags</h3>
-      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/LCA/" rel="tag">LCA</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/LCT/" rel="tag">LCT</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E6%A0%91/" rel="tag">动态树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag">图论</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/" rel="tag">树上问题</a></li></ul>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/LCA/" rel="tag">LCA</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/LCT/" rel="tag">LCT</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E6%A0%91/" rel="tag">动态树</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag">图论</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/" rel="tag">树上问题</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86/" rel="tag">树链剖分</a></li></ul>
     </div>
   </div>
 
@@ -271,32 +271,32 @@
 <p>由于辅助树的性质，我们维护任何操作都不需要维护原树，只需要维护辅助树即可。</p>
 <p>辅助树是可以在满足辅助树、Splay 的性质下任意换根的。虚实链变换也可以轻松在辅助树上完成，这就实现了动态维护树链剖分。</p>
 <h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="需要用到的数组"><a href="#需要用到的数组" class="headerlink" title="需要用到的数组"></a>需要用到的数组</h2><ul>
-<li><code>son[x][0/1]</code> 左右儿子</li>
-<li><code>fa[x]</code> 父亲</li>
-<li><code>val[x]</code> 点权</li>
-<li><code>tag[x]</code> 翻转标记</li>
-<li>题目需要用到的其他数组</li>
+<li><code>son[x][0/1]</code> 左右儿子。</li>
+<li><code>fa[x]</code> 父亲。</li>
+<li><code>val[x]</code> 点权。</li>
+<li><code>tag[x]</code> 翻转标记。</li>
+<li>题目需要用到的其他数组。</li>
 </ul>
 <h2 id="需要用到的函数"><a href="#需要用到的函数" class="headerlink" title="需要用到的函数"></a>需要用到的函数</h2><ul>
-<li><code>IsRoot(x)</code> 判断 $x$ 是否为当前 Splay 的根</li>
-<li><code>Reverse(x)</code> 翻转 $x$ 的子树</li>
-<li><code>PushUp(x)</code> 向上更新数据</li>
-<li><code>PushDown(x)</code> 向下传递标记</li>
-<li><code>Update(x)</code> 从当前 Splay 的根下传标记到 $x$</li>
-<li><code>Get(x)</code> 获取 $x$ 是 Splay 中父亲的那个儿子</li>
-<li><code>Rotate(x)</code> 将 $x$ 向上旋转一层</li>
-<li><code>Splay(x)</code> 伸展 $x$ 到当前 Splay 的根</li>
-<li><code>Access(x)</code> 将当前原树的根到 $x$ 拉成一条实链</li>
-<li><code>MakeRoot(x)</code> 将 $x$ 换成当前原树的根</li>
-<li><code>FindRoot(x)</code> 返回 $x$ 所在原树的根节点编号</li>
-<li><code>Split(x,y)</code> 提取出 $x,y$ 间的路径</li>
-<li><code>Link(x,y)</code> 在 $x,y$ 之间连一条边</li>
-<li><code>Cut(x,y)</code> 断开 $x,y$ 之间的边</li>
-<li>题目需要用到的其他函数</li>
+<li><code>IsRoot(x)</code> 判断 $x$ 是否为当前 Splay 的根。</li>
+<li><code>Reverse(x)</code> 翻转 $x$ 的子树。</li>
+<li><code>PushUp(x)</code> 向上更新数据。</li>
+<li><code>PushDown(x)</code> 向下传递标记。</li>
+<li><code>Update(x)</code> 从当前 Splay 的根下传标记到 $x$。</li>
+<li><code>Get(x)</code> 获取 $x$ 是 Splay 中父亲的那个儿子。</li>
+<li><code>Rotate(x)</code> 将 $x$ 向上旋转一层。</li>
+<li><code>Splay(x)</code> 伸展 $x$ 到当前 Splay 的根。</li>
+<li><code>Access(x)</code> 将当前原树的根到 $x$ 拉成一条实链。</li>
+<li><code>MakeRoot(x)</code> 将 $x$ 换成当前原树的根。</li>
+<li><code>FindRoot(x)</code> 返回 $x$ 所在原树的根节点编号。</li>
+<li><code>Split(x,y)</code> 提取出 $x,y$ 间的路径。</li>
+<li><code>Link(x,y)</code> 在 $x,y$ 之间连一条边。</li>
+<li><code>Cut(x,y)</code> 断开 $x,y$ 之间的边。</li>
+<li>题目需要用到的其他函数。</li>
 </ul>
 <h2 id="宏定义"><a href="#宏定义" class="headerlink" title="宏定义"></a>宏定义</h2><ul>
-<li><code>lson(x)</code> 表示 <code>son[x][0]</code></li>
-<li><code>rson(x)</code> 表示 <code>son[x][1]</code></li>
+<li><code>lson(x)</code> 表示 <code>son[x][0]</code>。</li>
+<li><code>rson(x)</code> 表示 <code>son[x][1]</code>。</li>
 </ul>
 <h2 id="IsRoot-x"><a href="#IsRoot-x" class="headerlink" title="IsRoot(x)"></a>IsRoot(x)</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> IsRoot(x) (lson(fa[x])!=x&amp;&amp;rson(fa[x])!=x)</span></span><br><span class="line"><span class="comment">//如果 x 不是父亲的左儿子也不是右儿子，就一定是 Splay 的根</span></span><br></pre></td></tr></table></figure>
 <h2 id="Reverse-x"><a href="#Reverse-x" class="headerlink" title="Reverse(x)"></a>Reverse(x)</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> Reverse(x) swap(lson(x),rson(x)),tag[x]^=1</span></span><br></pre></td></tr></table></figure>
@@ -365,10 +365,15 @@
   
     
 <nav id="article-nav">
-  <a class="article-nav-btn left  disabled "
+  <a class="article-nav-btn left "
+    
+      href="/2024/06/23/heavy-path-decomposition/"
+      title="树链剖分"
      >
     <i class="fa-solid fa-angle-left"></i>
     <p class="title-text">
+      
+        树链剖分
         
     </p>
   </a>
